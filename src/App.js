@@ -5,6 +5,7 @@ import { useHttp } from "./hooks/http";
 //import Menu from "./components/Menu";
 import WeatherCurrent from "./components/WeatherCurrent";
 import WeatherForecast from "./components/WeatherForecast";
+import Background from "./components/Background";
 
 function App(props) {
   const [isLoading, fetchedData] = useHttp("http://ip-api.com/json", []);
@@ -28,8 +29,14 @@ function App(props) {
   if (!isLoading && loadedLocation) {
     content = (
       <div className={"App " + partOfDay}>
-        <WeatherCurrent location={loadedLocation} setPartOfDay={setPartOfDay} />
-        <WeatherForecast location={loadedLocation} />
+        <Background />
+        <div className="App__container">
+          <WeatherCurrent
+            location={loadedLocation}
+            setPartOfDay={setPartOfDay}
+          />
+          <WeatherForecast location={loadedLocation} />
+        </div>
       </div>
     );
   } else if (!isLoading && !loadedLocation) {

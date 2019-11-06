@@ -1,0 +1,27 @@
+.background {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  color: #aec7d80a;
+  color:#fff;
+
+  &__cloud1 {
+    position: absolute;
+    top: 20%;
+    right: 75%;
+  }
+  &__cloud2 {
+    position: absolute;
+    top: 1%;
+    right: -10%;
+  }
+  &__cloud3 {
+    position: absolute;
+    top: 60%;
+    right: 30%;
+  }
+}

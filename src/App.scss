@@ -1,32 +1,51 @@
 @import "Normalize.scss";
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Overpass:400,600,700,900|Rubik:500,700&display=swap");
 
+:root {
+  --color-primary: #fff;
+  --color-secondary: rgba(255, 255, 255, 0.418);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 html {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Overpass", sans-serif;
 }
 
 body {
-  box-sizing: border-box;
   color: #fff;
 }
 
 .App {
   text-align: center;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  min-height: 100vh;
+  position: relative;
+
+  &__container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 2px);
+    // border: 1px solid #fff;
+    padding: 20px;
+  }
 }
 
 /* Night mode */
 .n {
   background-image: linear-gradient(to bottom, #4201a0, #040734);
+  z-index: -2;
 }
 
 /* Day mode */
 
 .d {
-  background-image: linear-gradient(to bottom, #39ccfd, #0060dd);
+  background-image: linear-gradient(to bottom, #307dfc, #56a0fb, #307dfc);
+  z-index: -2;
 }
 
 .forecastImage {
@@ -51,11 +70,4 @@ body {
 
 .App-link {
   color: #09d3ac;
-}
-
-.current-weather {
-  border: 2px solid rgb(38, 38, 172);
-}
-.forecast-weather {
-  border: 2px solid rgb(33, 160, 33);
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useHttp } from "../hooks/http";
+import "./WeatherForecast.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
@@ -89,22 +90,31 @@ const WeatherForecast = ({ location }) => {
   if (!isLoading && loadedWeather) {
     content = (
       <>
-        <div>
+        <div className="weather-forecast">
           {loadedWeather.map((day, index) => {
             return (
-              <div key={index}>
-                {getWeekday(index + 1)}{" "}
-                <img
-                  className="forecastImage"
-                  src={require("../assets/weatherbitIcons/" +
-                    day.dayWeather.weather.icon +
-                    ".png")}
-                  alt=""
-                />{" "}
-                {Math.round(day.dayWeather.max_temp)}
-                {"°/"}
-                {Math.round(day.dayWeather.min_temp)}
-                {"°"}
+              <div className="weather-forecast__day" key={index}>
+                <div className="weather-forecast__weekdayName">
+                  {getWeekday(index + 1)}
+                </div>
+                <div className="weather-forecast__details">
+                  <img
+                    className="forecastImage"
+                    src={require("../assets/weatherbitIcons/" +
+                      day.dayWeather.weather.icon +
+                      ".png")}
+                    alt={day.dayWeather.description}
+                  />
+                  <div className="weather-forecast__details__temps">
+                    <p className="weather-forecast__details__temps--primary">
+                      {Math.round(day.dayWeather.max_temp)}°
+                    </p>
+
+                    <p className="weather-forecast__details__temps--secondary">
+                      /{Math.round(day.dayWeather.min_temp)}°
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}

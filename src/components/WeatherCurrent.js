@@ -1,6 +1,9 @@
 import React from "react";
 import { useHttp } from "../hooks/http";
 import MainWeatherImage from "./MainWeatherImage";
+import pin from "../assets/pin.svg";
+
+import "./WeatherCurrent.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
@@ -35,17 +38,38 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
   if (!isLoading && loadedWeather) {
     content = (
       <div className="current-weather">
-        <div>Current weather</div>
-        <div>
+        <div className="current-weather__main__location">
+          <img
+            className="current-weather__main__location--pin"
+            src={pin}
+            alt="pin"
+          />
           {loadedWeather.cityName}, {loadedWeather.countryCode}
         </div>
-        <div>Sunrise: {loadedWeather.sunrise}</div>
-        <div>Sunset :{loadedWeather.sunset}</div>
-        <div>Temperature: {Math.round(loadedWeather.temp)}°</div>
-        <div>Feels like: {Math.round(loadedWeather.feelsLike)}°</div>
-        <div>Description: {loadedWeather.desc}</div>
-        <div>Precipitation: {Math.round(loadedWeather.precip)}mm</div>
-        <MainWeatherImage iconName={loadedWeather.iconName} />
+        <div className="current-weather__main">
+          <MainWeatherImage iconName={loadedWeather.iconName} />
+          <div className="current-weather__main__temp">
+            <p className="current-weather__main__temp--number">
+              {Math.round(loadedWeather.temp)}
+
+              <span className="current-weather__main__temp--degree">°</span>
+            </p>
+          </div>
+        </div>
+        <div className="current-weather__main__stats">
+          <p>Feels like {Math.round(loadedWeather.feelsLike)}°</p>
+          <p>{loadedWeather.desc}</p>
+        </div>
+        <div className="current-weather__details">
+          <p className="current-weather__details__sunrise">
+            Sunrise {loadedWeather.sunrise}
+          </p>
+          <p className="current-weather__details__sunset">
+            Sunset {loadedWeather.sunset}
+          </p>
+
+          <div>Precipitation: {Math.round(loadedWeather.precip)}mm</div>
+        </div>
       </div>
     );
   } else if (!isLoading && !loadedWeather) {

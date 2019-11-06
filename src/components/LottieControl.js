@@ -11,9 +11,26 @@ const LottieControl = props => {
     }
   };
 
+  const adaptToScreenWidth = () => {
+    const width = Math.max(window.screen.width, window.innerWidth);
+    if (width > 600) {
+      return 180;
+    } else if (width <= 600 && width >= 500) {
+      return 150;
+    } else if (width < 500 && width > 400) {
+      return 100;
+    } else if (width < 400) {
+      return 100;
+    }
+  };
+
   return (
-    <div>
-      <Lottie options={defaultOptions} height={200} width={200} />
+    <div className="current-weather__main__icon">
+      <Lottie
+        options={defaultOptions}
+        height={adaptToScreenWidth()}
+        width={adaptToScreenWidth()}
+      />
     </div>
   );
 };
