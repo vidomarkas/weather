@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.scss";
+import { useHttp } from "./hooks/http";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//import Menu from "./components/Menu";
+import WeatherCurrent from "./components/WeatherCurrent";
+import WeatherForecast from "./components/WeatherForecast";
+
+function App(props) {
+  const [isLoading, fetchedData] = useHttp("http://ip-api.com/json", []);
+  const [partOfDay, setPartOfDay] = useState("d");
+
+  let loadedLocation = null;
+
+  if (fetchedData) {
+    loadedLocation = {
+      city: fetchedData.city,
+      lat: fetchedData.lat,
+      lon: fetchedData.lon,
+      timezone: fetchedData.timezone,
+      country: fetchedData.country,
+      countryCode: fetchedData.countryCode
+    };
+  }
+
+  let content = <p>Loading...</p>;
+
+  if (!isLoading && loadedLocation) {
+    content = (
+      <div className={"App " + partOfDay}>
+        <WeatherCurrent location={loadedLocation} setPartOfDay={setPartOfDay} />
+        <WeatherForecast location={loadedLocation} />
+      </div>
+    );
+  } else if (!isLoading && !loadedLocation) {
+    content = <p>Failed to fetch your location</p>;
+  }
+  return content;
 }
 
 export default App;

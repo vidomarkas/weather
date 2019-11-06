@@ -1,0 +1,61 @@
+@import "Normalize.scss";
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+
+html {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.App {
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Night mode */
+.n {
+  background-image: linear-gradient(to bottom, #4201a0, #040734);
+}
+
+/* Day mode */
+
+.d {
+  background-image: linear-gradient(to bottom, #39ccfd, #0060dd);
+}
+
+.forecastImage {
+  height: 30px;
+  width: 30px;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.current-weather {
+  border: 2px solid rgb(38, 38, 172);
+}
+.forecast-weather {
+  border: 2px solid rgb(33, 160, 33);
+}
