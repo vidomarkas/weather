@@ -4,7 +4,7 @@ import "./WeatherForecast.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-const WeatherForecast = ({ location }) => {
+const WeatherForecast = ({ location, setTodaysWeather }) => {
   const [isLoading, forecastWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
@@ -43,8 +43,15 @@ const WeatherForecast = ({ location }) => {
     loadedWeather = [];
     forecastWeather.data.map(dayWeather => {
       loadedWeather.push({ dayWeather });
+
       return null;
     });
+
+    //remove first result from the array
+    const todaysWeather = loadedWeather.shift();
+    console.log(todaysWeather);
+    console.log(loadedWeather);
+    // setTodaysWeather(todaysWeather);
 
     // temp: forecastWeather.data[index].temp,
     // min: forecastWeather.data[index].min_temp,

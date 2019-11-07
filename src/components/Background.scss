@@ -3,11 +3,11 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -1;
+  // z-index: -1;
   overflow: hidden;
   position: absolute;
   color: #aec7d80a;
-  color:#fff;
+  color: #fff;
 
   &__cloud1 {
     position: absolute;
@@ -24,4 +24,16 @@
     top: 60%;
     right: 30%;
   }
+}
+
+.n {
+  background-image: linear-gradient(to bottom, #4201a0, #040734);
+  // z-index: -2;
+}
+
+/* Day mode */
+
+.d {
+  background-image: linear-gradient(to bottom, #307dfc, #56a0fb, #307dfc);
+  // z-index: -2;
 }

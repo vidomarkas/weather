@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import "./App.scss";
 import { useHttp } from "./hooks/http";
 
-//import Menu from "./components/Menu";
+import Menu from "./components/Menu";
 import WeatherCurrent from "./components/WeatherCurrent";
 import WeatherForecast from "./components/WeatherForecast";
 import Background from "./components/Background";
 
-function App(props) {
-  const [isLoading, fetchedData] = useHttp("http://ip-api.com/json", []);
+const App = () => {
   const [partOfDay, setPartOfDay] = useState("d");
+  const [isLoading, fetchedLocation] = useHttp(`https://ipapi.co/json/`, []);
 
   let loadedLocation = null;
 
-  if (fetchedData) {
+  if (fetchedLocation) {
     loadedLocation = {
-      city: fetchedData.city,
-      lat: fetchedData.lat,
-      lon: fetchedData.lon,
-      timezone: fetchedData.timezone,
-      country: fetchedData.country,
-      countryCode: fetchedData.countryCode
+      city: fetchedLocation.city,
+      lat: fetchedLocation.latitude,
+      lon: fetchedLocation.longitude,
+      country: fetchedLocation.country_name,
+      countryCode: fetchedLocation.country
     };
   }
 
@@ -31,11 +30,16 @@ function App(props) {
       <div className={"App " + partOfDay}>
         <Background />
         <div className="App__container">
+          <Menu />
           <WeatherCurrent
             location={loadedLocation}
             setPartOfDay={setPartOfDay}
+            // todaysWeather={todaysWeather}
           />
-          <WeatherForecast location={loadedLocation} />
+          <WeatherForecast
+            location={loadedLocation}
+            // setTodaysWeather={setTodaysWeather}
+          />
         </div>
       </div>
     );
@@ -43,6 +47,6 @@ function App(props) {
     content = <p>Failed to fetch your location</p>;
   }
   return content;
-}
+};
 
 export default App;

@@ -32,21 +32,11 @@ body {
     min-height: calc(100vh - 2px);
     // border: 1px solid #fff;
     padding: 20px;
+    position: relative;
   }
 }
 
 /* Night mode */
-.n {
-  background-image: linear-gradient(to bottom, #4201a0, #040734);
-  z-index: -2;
-}
-
-/* Day mode */
-
-.d {
-  background-image: linear-gradient(to bottom, #307dfc, #56a0fb, #307dfc);
-  z-index: -2;
-}
 
 .forecastImage {
   height: 30px;
