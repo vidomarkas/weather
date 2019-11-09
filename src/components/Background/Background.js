@@ -1,5 +1,5 @@
 import React from "react";
-import cloud from "../assets/cloud.svg";
+import cloud from "../../assets/cloud.svg";
 import "./Background.scss";
 
 export default function Background() {

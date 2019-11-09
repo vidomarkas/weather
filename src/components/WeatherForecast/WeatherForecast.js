@@ -1,12 +1,18 @@
 import React from "react";
-import { useHttp } from "../hooks/http";
+import { useHttp } from "../../hooks/http";
 import "./WeatherForecast.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherForecast = ({ location, setTodaysWeather }) => {
+  let country;
+  if (location.country) {
+    country = `&country=${location.country}`;
+  } else {
+    country = ``;
+  }
   const [isLoading, forecastWeather] = useHttp(
-    `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
+    `https://api.weatherbit.io/v2.0/forecast/daily?&city=${location.city}${country}&key=${API_KEY}`
   );
 
   let loadedWeather = null;
@@ -116,7 +122,7 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
                 <div className="weather-forecast__details">
                   <img
                     className="forecastImage"
-                    src={require("../assets/weatherbitIcons/" +
+                    src={require("../../assets/weatherbitIcons/" +
                       day.dayWeather.weather.icon +
                       ".png")}
                     alt={day.dayWeather.description}
@@ -138,7 +144,18 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
       </>
     );
   } else if (!isLoading && !loadedWeather) {
-    content = <p>Failed to fetch the weather</p>;
+    content = (
+      <div className="weather-forecast">
+        <p>Failed to fetch the forecast</p>
+        <button
+          className="btn-reload"
+          value="Refresh Page"
+          onClick={() => window.location.reload()}
+        >
+          Try again?
+        </button>
+      </div>
+    );
   }
   return content;
 };

@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import "./App.scss";
 
 import { LocationContext } from "./context";
-import Menu from "./components/Menu";
+import Menu from "./components/Menu/Menu";
 import Location from "./components/Location";
-import Background from "./components/Background";
+import Background from "./components/Background/Background";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
@@ -29,7 +29,7 @@ const App = () => {
     </div>
   );
 
-  if (locationContext.IPlocation) {
+  if (locationContext.IPlocation && !locationContext.isLoading) {
     content = (
       <div
         className="App background--default"
@@ -41,7 +41,15 @@ const App = () => {
           <LocationContext.Consumer>
             {value => {
               // console.log("value", value);
-              return <Location location={value.IPlocation} />;
+              return (
+                <Location
+                  location={
+                    value.geoLocation ? value.geoLocation : value.IPlocation
+                  }
+                  isLoading={value.isLoading}
+                  // setPartOfDay={}
+                />
+              );
             }}
           </LocationContext.Consumer>
           {/* <LocationContext.Consumer>
@@ -54,7 +62,7 @@ const App = () => {
         </div>
       </div>
     );
-  } else if (!locationContext.IPlocation) {
+  } else if (!locationContext.IPlocation && !locationContext.isLoading) {
     content = <p>Failed to fetch your location</p>;
   }
   return content;

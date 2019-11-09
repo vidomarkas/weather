@@ -1,6 +1,6 @@
 import React from "react";
-import WeatherCurrent from "./WeatherCurrent";
-import WeatherForecast from "./WeatherForecast";
+import WeatherCurrent from "./WeatherCurrent/WeatherCurrent";
+import WeatherForecast from "./WeatherForecast/WeatherForecast";
 
 const Location = props => {
   //   console.log("location props", props);
@@ -8,7 +8,8 @@ const Location = props => {
     <>
       <WeatherCurrent
         location={props.location}
-        setPartOfDay={props.setPartOfDay}
+        isLoadingLocation={props.isLoading}
+        // setPartOfDay={props.setPartOfDay}
       />
       <WeatherForecast location={props.location} />
     </>

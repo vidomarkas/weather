@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import menu from "../assets/menu.svg";
+import menu from "../../assets/menu.svg";
 import "./Menu.scss";
 
 const Menu = () => {

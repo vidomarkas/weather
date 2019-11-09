@@ -21,6 +21,20 @@ body {
   color: #fff;
 }
 
+.btn-reload {
+  margin: 30px;
+  padding: 8px 12px;
+  background-color: black;
+  border: 2px solid #797979;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #10b92c;
+  }
+}
+
 .App {
   text-align: center;
   position: relative;

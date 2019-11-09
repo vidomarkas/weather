@@ -3,59 +3,58 @@ import { useHttp } from "./hooks/http";
 export const LocationContext = React.createContext({});
 
 const LocationContextProvider = props => {
-  const [IPlocation, setIPlocation] = useState({
-    // lat: 55.65,
-    // lon: 0.32
-  });
+  const [IPlocation, setIPlocation] = useState({});
   const [geoLocation, setGeoLocation] = useState(null);
   const [addedLocations, setAddedLocations] = useState(["London", "Chicago"]);
-  const [fetchedData, setFetchedData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchIPlocation = async () => {
+    try {
+      const result = await fetch(`https://ipapi.co/json/`);
+      const data = await result.json();
+      setIPlocation({ city: data.city, country: data.country });
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchData() {
-      const DATA = await fetch(`https://ipapi.co/json/`);
-      const DATAjson = await DATA.json();
-      console.log("LAT", DATAjson.latitude);
-      console.log("LON", DATAjson.longitude);
-      setIPlocation({ lat: DATAjson.latitude, lon: DATAjson.longitude });
-      console.log("IPLocation", IPlocation);
-    }
-    fetchData();
+    setIsLoading(true);
+    fetchIPlocation();
   }, []);
 
-  //   useEffect(async () => {
-  //     const DATA = await fetch(`https://ipapi.co/json/`)
-  //       .then(response => {
-  //         if (!response.ok) {
-  //           throw new Error("Failed to fetch.");
-  //         }
+  //   const addLocation = addedLocation => {
+  //     setAddedLocations(prevState => [...prevState, addedLocation]);
+  //   };
 
-  //         return response.json();
-  //       })
-  //       .then(data => {
-  //         console.log("DATA", data);
-  //         setFetchedData(data);
+  const getGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    function showPosition(position) {
+      console.log(
+        "GEOLOCATION!!! lat: " +
+          position.coords.latitude +
+          " lon: " +
+          position.coords.longitude
+      );
 
-  //         const coords = {
-  //           lat: fetchedData.latitude,
-  //           lon: fetchedData.longitude
-  //         };
-  //         setIPlocation(...coords);
-  //         console.log("IPlocation", IPlocation);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //         setIsLoading(false);
-  //       });
-  //   }, []);
+      setGeoLocation({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      });
+    }
+  };
 
   return (
     <LocationContext.Provider
       value={{
         IPlocation: { ...IPlocation },
         geoLocation: { ...geoLocation },
-        addedLocations: [...addedLocations]
+        addedLocations: [...addedLocations],
+        isLoading: isLoading,
+        getGeoLocation: getGeoLocation
+        // addLocation: addLocation
       }}
     >
       {props.children}
@@ -63,5 +62,4 @@ const LocationContextProvider = props => {
   );
 };
 
-// const LocationContextConsumer = LocationContext.Consumer;
 export { LocationContextProvider };
