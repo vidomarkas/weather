@@ -1,49 +1,60 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./App.scss";
-import { useHttp } from "./hooks/http";
 
+import { LocationContext } from "./context";
 import Menu from "./components/Menu";
-import WeatherCurrent from "./components/WeatherCurrent";
-import WeatherForecast from "./components/WeatherForecast";
+import Location from "./components/Location";
 import Background from "./components/Background";
 
 const App = () => {
-  const [partOfDay, setPartOfDay] = useState("d");
-  const [isLoading, fetchedLocation] = useHttp(`https://ipapi.co/json/`, []);
+  const locationContext = useContext(LocationContext);
+  // todo const [partOfDay, setPartOfDay] = useState("default");
 
-  let loadedLocation = null;
+  // const [locations, setLocations] = useState({
+  //   currentLocation: [{ IPlocation: null }, { geoLocation: null }],
+  //   addedLocations: []
+  // });
 
-  if (fetchedLocation) {
-    loadedLocation = {
-      city: fetchedLocation.city,
-      lat: fetchedLocation.latitude,
-      lon: fetchedLocation.longitude,
-      country: fetchedLocation.country_name,
-      countryCode: fetchedLocation.country
-    };
-  }
+  // console.log("app locationContext", locationContext);
 
-  let content = <p>Loading...</p>;
+  let content = (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      Getting location...
+    </div>
+  );
 
-  if (!isLoading && loadedLocation) {
+  if (locationContext.IPlocation) {
     content = (
-      <div className={"App " + partOfDay}>
+      <div
+        className="App background--default"
+        //todo partOfDay
+      >
         <Background />
         <div className="App__container">
           <Menu />
-          <WeatherCurrent
-            location={loadedLocation}
-            setPartOfDay={setPartOfDay}
-            // todaysWeather={todaysWeather}
-          />
-          <WeatherForecast
-            location={loadedLocation}
-            // setTodaysWeather={setTodaysWeather}
-          />
+          <LocationContext.Consumer>
+            {value => {
+              // console.log("value", value);
+              return <Location location={value.IPlocation} />;
+            }}
+          </LocationContext.Consumer>
+          {/* <LocationContext.Consumer>
+            {value => {
+              return value.addedLocations.map(location => {
+                return <Location location={location} />;
+              });
+            }}
+          </LocationContext.Consumer> */}
         </div>
       </div>
     );
-  } else if (!isLoading && !loadedLocation) {
+  } else if (!locationContext.IPlocation) {
     content = <p>Failed to fetch your location</p>;
   }
   return content;

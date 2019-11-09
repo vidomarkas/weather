@@ -7,7 +7,7 @@ import "./WeatherCurrent.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-const WeatherCurrent = ({ location, setPartOfDay }) => {
+const WeatherCurrent = ({ location }) => {
   const [isLoading, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
@@ -30,10 +30,21 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
       partOfDay: currentWeather.data[0].pod
     };
 
-    setPartOfDay(loadedWeather.partOfDay);
+    // setPartOfDay(loadedWeather.partOfDay);
   }
 
-  let content = <p>Loading...</p>;
+  let content = (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "50vh"
+      }}
+    >
+      Getting current weather...
+    </div>
+  );
 
   if (!isLoading && loadedWeather) {
     content = (

@@ -26,14 +26,18 @@
   }
 }
 
-.n {
+.background--default {
+  background-color: black;
+}
+
+.background--n {
   background-image: linear-gradient(to bottom, #4201a0, #040734);
   // z-index: -2;
 }
 
 /* Day mode */
 
-.d {
+.background--d {
   background-image: linear-gradient(to bottom, #307dfc, #56a0fb, #307dfc);
   // z-index: -2;
 }

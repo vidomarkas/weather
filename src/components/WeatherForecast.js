@@ -92,7 +92,16 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
   // const forecastIcon = day.dayWeather.weather.icon.slice(0, 3);
   // console.log(forecastIcon);
 
-  let content = <p>Loading...</p>;
+  let content = null;
+  // <div
+  //   style={{
+  //     display: "flex",
+  //     alignItems: "center",
+  //     justifyContent: "center"
+  //   }}
+  // >
+  //   Getting forecast ...
+  // </div>
 
   if (!isLoading && loadedWeather) {
     content = (
