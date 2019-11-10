@@ -3,7 +3,7 @@ import WeatherCurrent from "./WeatherCurrent/WeatherCurrent";
 import WeatherForecast from "./WeatherForecast/WeatherForecast";
 
 const Location = props => {
-  //   console.log("location props", props);
+  console.log("location props", props);
   return (
     <>
       <WeatherCurrent

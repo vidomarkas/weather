@@ -12,7 +12,7 @@ const LocationContextProvider = props => {
     try {
       const result = await fetch(`https://ipapi.co/json/`);
       const data = await result.json();
-      setIPlocation({ city: data.city, country: data.country });
+      setIPlocation({ lat: data.latitude, lon: data.longitude });
       setIsLoading(false);
     } catch (error) {
       console.log(error);

@@ -12,14 +12,14 @@ const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherCurrent = ({ location, isLoadingLocation }) => {
   const locationContext = useContext(LocationContext);
-  let country;
-  if (location.country) {
-    country = `&country=${location.country}`;
-  } else {
-    country = ``;
-  }
+  // let country;
+  // if (location.country) {
+  //   country = `&country=${location.country}`;
+  // } else {
+  //   country = ``;
+  // }
   const [isLoadingWeather, currentWeather] = useHttp(
-    `https://api.weatherbit.io/v2.0/current?&city=${location.city}${country}&key=${API_KEY}`
+    `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
 
   // const [partOfDay, setPartOfDay] = useState("d");

@@ -44,7 +44,7 @@ const App = () => {
               return (
                 <Location
                   location={
-                    value.geoLocation ? value.geoLocation : value.IPlocation
+                    value.geoLocation.lat ? value.geoLocation : value.IPlocation
                   }
                   isLoading={value.isLoading}
                   // setPartOfDay={}

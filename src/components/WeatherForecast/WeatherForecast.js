@@ -12,7 +12,7 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
     country = ``;
   }
   const [isLoading, forecastWeather] = useHttp(
-    `https://api.weatherbit.io/v2.0/forecast/daily?&city=${location.city}${country}&key=${API_KEY}`
+    `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
 
   let loadedWeather = null;
