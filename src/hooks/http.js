@@ -6,7 +6,7 @@ export const useHttp = url => {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log("sending http request");
+    console.log("sending http request with ", url);
     fetch(url)
       .then(response => {
         if (!response.ok) {

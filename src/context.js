@@ -30,20 +30,14 @@ const LocationContextProvider = props => {
   //   };
 
   const getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition(showPosition);
-    function showPosition(position) {
-      console.log(
-        "GEOLOCATION!!! lat: " +
-          position.coords.latitude +
-          " lon: " +
-          position.coords.longitude
-      );
-
+      console.log("getting geolocation")
+    const showPosition = position => {
       setGeoLocation({
         lat: position.coords.latitude,
         lon: position.coords.longitude
       });
-    }
+    };
+    navigator.geolocation.getCurrentPosition(showPosition);
   };
 
   return (

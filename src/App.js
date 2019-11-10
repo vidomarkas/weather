@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useState,  useContext } from "react";
 import "./App.scss";
 
 import { LocationContext } from "./context";
@@ -8,7 +8,7 @@ import Background from "./components/Background/Background";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
-  // todo const [partOfDay, setPartOfDay] = useState("default");
+   const [partOfDay, setPartOfDay] = useState("default");
 
   // const [locations, setLocations] = useState({
   //   currentLocation: [{ IPlocation: null }, { geoLocation: null }],
@@ -32,7 +32,7 @@ const App = () => {
   if (locationContext.IPlocation && !locationContext.isLoading) {
     content = (
       <div
-        className="App background--default"
+        className={"App background--"+partOfDay}
         //todo partOfDay
       >
         <Background />
@@ -47,7 +47,7 @@ const App = () => {
                     value.geoLocation.lat ? value.geoLocation : value.IPlocation
                   }
                   isLoading={value.isLoading}
-                  // setPartOfDay={}
+                  setPartOfDay={ setPartOfDay}
                 />
               );
             }}

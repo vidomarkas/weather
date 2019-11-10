@@ -5,17 +5,12 @@ import "./WeatherForecast.scss";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherForecast = ({ location, setTodaysWeather }) => {
-  let country;
-  if (location.country) {
-    country = `&country=${location.country}`;
-  } else {
-    country = ``;
-  }
+ 
   const [isLoading, forecastWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
 
-  let loadedWeather = null;
+ 
 
   const getWeekday = upcomingDay => {
     const date = new Date();
@@ -45,6 +40,8 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
     return day;
   };
 
+  let loadedWeather = null;
+
   if (forecastWeather) {
     loadedWeather = [];
     forecastWeather.data.map(dayWeather => {
@@ -55,59 +52,17 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
 
     //remove first result from the array
     const todaysWeather = loadedWeather.shift();
-    console.log(todaysWeather);
+    // console.log(todaysWeather);
     console.log(loadedWeather);
     // setTodaysWeather(todaysWeather);
 
-    // temp: forecastWeather.data[index].temp,
-    // min: forecastWeather.data[index].min_temp,
-    // max: forecastWeather.data[index].max_temp,
-    // precipProb: forecastWeather.data[index].pop,
-    // iconName: forecastWeather.data[index].weather.icon,
-    // desc: forecastWeather.data[index].weather.description
-
-    // loadedWeather = {
-    //   tomorrow: {
-    //     cityName: forecastWeather.city_name,
-    //     countryCode: forecastWeather.country_code,
-
-    //     temp: forecastWeather.data[0].temp,
-    //     min: forecastWeather.data[0].min_temp,
-    //     max: forecastWeather.data[0].max_temp,
-    //     precipProb: forecastWeather.data[0].pop,
-    //     iconName: forecastWeather.data[0].weather.icon,
-    //     desc: forecastWeather.data[0].weather.description,
-
-    //   },
-    //   2: {
-    //     cityName: forecastWeather.city_name,
-    //     countryCode: forecastWeather.country_code,
-
-    //     temp: forecastWeather.data[1].temp,
-    //     min: forecastWeather.data[1].min_temp,
-    //     max: forecastWeather.data[1].max_temp,
-    //     precipProb: forecastWeather.data[1].pop,
-    //     iconName: forecastWeather.data[1].weather.icon,
-    //     desc: forecastWeather.data[1].weather.description,
-
-    //   },
-
-    // };
   }
 
   // const forecastIcon = day.dayWeather.weather.icon.slice(0, 3);
   // console.log(forecastIcon);
 
   let content = null;
-  // <div
-  //   style={{
-  //     display: "flex",
-  //     alignItems: "center",
-  //     justifyContent: "center"
-  //   }}
-  // >
-  //   Getting forecast ...
-  // </div>
+  
 
   if (!isLoading && loadedWeather) {
     content = (

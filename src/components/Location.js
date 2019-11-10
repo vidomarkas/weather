@@ -9,7 +9,7 @@ const Location = props => {
       <WeatherCurrent
         location={props.location}
         isLoadingLocation={props.isLoading}
-        // setPartOfDay={props.setPartOfDay}
+        setPartOfDay={props.setPartOfDay}
       />
       <WeatherForecast location={props.location} />
     </>

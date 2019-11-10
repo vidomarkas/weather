@@ -2,22 +2,17 @@ import React, { useState, useContext } from "react";
 import { useHttp } from "../../hooks/http";
 import MainWeatherImage from "../MainWeatherImage";
 import pin from "../../assets/pin.svg";
+import IPpin from "../../assets/IPpin.svg";
 
 import "./WeatherCurrent.scss";
-import { valueToNode } from "@babel/types";
 import loadingIcon from "../../assets/loader.gif";
 import { LocationContext } from "../../context";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-const WeatherCurrent = ({ location, isLoadingLocation }) => {
+const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
   const locationContext = useContext(LocationContext);
-  // let country;
-  // if (location.country) {
-  //   country = `&country=${location.country}`;
-  // } else {
-  //   country = ``;
-  // }
+  
   const [isLoadingWeather, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
@@ -40,7 +35,7 @@ const WeatherCurrent = ({ location, isLoadingLocation }) => {
       partOfDay: currentWeather.data[0].pod
     };
 
-    // setPartOfDay(loadedWeather.partOfDay);
+     setPartOfDay(loadedWeather.partOfDay);
   }
 
   let content = (
@@ -69,14 +64,15 @@ const WeatherCurrent = ({ location, isLoadingLocation }) => {
           <div className="current-weather">
             <div
               className="current-weather__main__location"
-              onClick={value.getGeoLocation}
+              onClick={ value.getGeoLocation}
             >
               <img
                 className="current-weather__main__location--pin"
-                src={pin}
+                src={locationContext.geoLocation.lat ? pin : IPpin}
                 alt="pin"
               />
               {loadedWeather.cityName}, {loadedWeather.countryCode}
+              {value.geoLocation.lat}
             </div>
             <div className="current-weather__main">
               <MainWeatherImage iconName={loadedWeather.iconName} />
