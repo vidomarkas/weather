@@ -72,7 +72,7 @@ const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
                 alt="pin"
               />
               {loadedWeather.cityName}, {loadedWeather.countryCode}
-              {value.geoLocation.lat}
+            
             </div>
             <div className="current-weather__main">
               <MainWeatherImage iconName={loadedWeather.iconName} />
