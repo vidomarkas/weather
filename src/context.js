@@ -5,7 +5,10 @@ export const LocationContext = React.createContext({});
 const LocationContextProvider = props => {
   const [IPlocation, setIPlocation] = useState({});
   const [geoLocation, setGeoLocation] = useState(null);
-  const [addedLocations, setAddedLocations] = useState(["London", "Chicago"]);
+  const [addedLocations, setAddedLocations] = useState([
+    { lat: 52.520007, lon: 13.404954 },
+    { lat: 55.755826, lon: 37.6173 }
+  ]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchIPlocation = async () => {
@@ -30,7 +33,7 @@ const LocationContextProvider = props => {
   //   };
 
   const getGeoLocation = () => {
-      console.log("getting geolocation")
+    console.log("getting geolocation");
     const showPosition = position => {
       setGeoLocation({
         lat: position.coords.latitude,
@@ -46,6 +49,7 @@ const LocationContextProvider = props => {
         IPlocation: { ...IPlocation },
         geoLocation: { ...geoLocation },
         addedLocations: [...addedLocations],
+        setAddedLocations: setAddedLocations,
         isLoading: isLoading,
         getGeoLocation: getGeoLocation
         // addLocation: addLocation

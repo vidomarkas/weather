@@ -12,7 +12,7 @@ const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
   const locationContext = useContext(LocationContext);
-  
+
   const [isLoadingWeather, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
@@ -35,7 +35,7 @@ const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
       partOfDay: currentWeather.data[0].pod
     };
 
-     setPartOfDay(loadedWeather.partOfDay);
+    //  setPartOfDay(loadedWeather.partOfDay);
   }
 
   let content = (
@@ -64,15 +64,19 @@ const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
           <div className="current-weather">
             <div
               className="current-weather__main__location"
-              onClick={ value.getGeoLocation}
+              onClick={value.getGeoLocation}
             >
               <img
                 className="current-weather__main__location--pin"
-                src={locationContext.geoLocation.lat ? pin : IPpin}
+                src={
+                  locationContext.geoLocation.lat ||
+                  locationContext.addedLocations.lat
+                    ? pin
+                    : IPpin
+                }
                 alt="pin"
               />
               {loadedWeather.cityName}, {loadedWeather.countryCode}
-            
             </div>
             <div className="current-weather__main">
               <MainWeatherImage iconName={loadedWeather.iconName} />

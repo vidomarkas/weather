@@ -1,15 +1,21 @@
-import React, {useState,  useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./App.scss";
 
 import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location";
 import Background from "./components/Background/Background";
+import SearchLocations from "./components/SearchLocations";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
-   const [partOfDay, setPartOfDay] = useState("default");
+  const [partOfDay, setPartOfDay] = useState("default");
+  const [searchOpen, setSearchOpen] = useState(false);
 
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+    console.log("from toggleSearch", searchOpen);
+  };
   // const [locations, setLocations] = useState({
   //   currentLocation: [{ IPlocation: null }, { geoLocation: null }],
   //   addedLocations: []
@@ -32,33 +38,40 @@ const App = () => {
   if (locationContext.IPlocation && !locationContext.isLoading) {
     content = (
       <div
-        className={"App background--"+partOfDay}
+        className={"App background--" + partOfDay}
         //todo partOfDay
       >
         <Background />
         <div className="App__container">
-          <Menu />
+          <Menu toggleSearch={toggleSearch} />
+
           <LocationContext.Consumer>
             {value => {
-              // console.log("value", value);
+              console.log("value", value);
               return (
-                <Location
-                  location={
-                    value.geoLocation.lat ? value.geoLocation : value.IPlocation
-                  }
-                  isLoading={value.isLoading}
-                  setPartOfDay={ setPartOfDay}
-                />
+                <>
+                  <SearchLocations
+                    searchOpen={searchOpen}
+                    setSearchOpen={setSearchOpen}
+                    setAddedLocations={value.setAddedLocations}
+                    addedLocations={value.addedLocations}
+                  />
+                  <Location
+                    location={
+                      value.geoLocation.lat
+                        ? value.geoLocation
+                        : value.IPlocation
+                    }
+                    isLoading={value.isLoading}
+                    setPartOfDay={setPartOfDay}
+                  />
+                  {value.addedLocations.map(location => {
+                    return <Location location={location} />;
+                  })}
+                </>
               );
             }}
           </LocationContext.Consumer>
-          {/* <LocationContext.Consumer>
-            {value => {
-              return value.addedLocations.map(location => {
-                return <Location location={location} />;
-              });
-            }}
-          </LocationContext.Consumer> */}
         </div>
       </div>
     );

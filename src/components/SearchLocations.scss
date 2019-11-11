@@ -1,0 +1,28 @@
+.ap-input {
+  height: 50px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.ap-input:focus {
+  border: 1px solid #616161d0;
+  fill: #929292;
+}
+
+.ap-input:hover ~ .ap-input-icon svg,
+.ap-input:focus ~ .ap-input-icon svg,
+.ap-input-icon:hover svg {
+  fill: #929292;
+}
+
+.ap-dropdown-menu {
+  border-radius: 10px;
+  text-align: left;
+  color: #000;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.ap-cursor .ap-suggestion-icon svg {
+  fill: #929292;
+}
