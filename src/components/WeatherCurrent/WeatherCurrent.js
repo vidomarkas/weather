@@ -1,23 +1,19 @@
 import React, { useState, useContext } from "react";
 import { useHttp } from "../../hooks/http";
+import { LocationContext } from "../../context";
 import MainWeatherImage from "../MainWeatherImage";
 import pin from "../../assets/pin.svg";
-import IPpin from "../../assets/IPpin.svg";
-
-import "./WeatherCurrent.scss";
 import loadingIcon from "../../assets/loader.gif";
-import { LocationContext } from "../../context";
+import "./WeatherCurrent.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
+const WeatherCurrent = ({ location, setPartOfDay }) => {
   const locationContext = useContext(LocationContext);
 
   const [isLoadingWeather, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
-
-  // const [partOfDay, setPartOfDay] = useState("d");
 
   let loadedWeather = null;
 
@@ -35,7 +31,8 @@ const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
       partOfDay: currentWeather.data[0].pod
     };
 
-    //  setPartOfDay(loadedWeather.partOfDay);
+    // todo try this
+    setPartOfDay(loadedWeather.partOfDay);
   }
 
   let content = (
@@ -57,56 +54,47 @@ const WeatherCurrent = ({ location, isLoadingLocation, setPartOfDay }) => {
     </div>
   );
 
-  if (!isLoadingLocation && loadedWeather) {
+  if (!isLoadingWeather && loadedWeather) {
     content = (
-      <LocationContext.Consumer>
-        {value => (
-          <div className="current-weather">
-            <div
-              className="current-weather__main__location"
-              onClick={value.getGeoLocation}
-            >
-              <img
-                className="current-weather__main__location--pin"
-                src={
-                  locationContext.geoLocation.lat ||
-                  locationContext.addedLocations.lat
-                    ? pin
-                    : IPpin
-                }
-                alt="pin"
-              />
-              {loadedWeather.cityName}, {loadedWeather.countryCode}
-            </div>
-            <div className="current-weather__main">
-              <MainWeatherImage iconName={loadedWeather.iconName} />
-              <div className="current-weather__main__temp">
-                <p className="current-weather__main__temp--number">
-                  {Math.round(loadedWeather.temp)}
+      <div className="current-weather">
+        <div
+          className="current-weather__main__location"
+          onClick={locationContext.getGeoLocation}
+        >
+          <img
+            className="current-weather__main__location--pin"
+            src={pin}
+            alt="pin"
+          />
+          {loadedWeather.cityName}, {loadedWeather.countryCode}
+        </div>
+        <div className="current-weather__main">
+          <MainWeatherImage iconName={loadedWeather.iconName} />
+          <div className="current-weather__main__temp">
+            <p className="current-weather__main__temp--number">
+              {Math.round(loadedWeather.temp)}
 
-                  <span className="current-weather__main__temp--degree">°</span>
-                </p>
-              </div>
-            </div>
-            <div className="current-weather__main__stats">
-              <p>Feels like {Math.round(loadedWeather.feelsLike)}°</p>
-              <p>{loadedWeather.desc}</p>
-            </div>
-            <div className="current-weather__details">
-              <p className="current-weather__details__sunrise">
-                Sunrise {loadedWeather.sunrise}
-              </p>
-              <p className="current-weather__details__sunset">
-                Sunset {loadedWeather.sunset}
-              </p>
-
-              <div>Precipitation: {Math.round(loadedWeather.precip)}mm</div>
-            </div>
+              <span className="current-weather__main__temp--degree">°</span>
+            </p>
           </div>
-        )}
-      </LocationContext.Consumer>
+        </div>
+        <div className="current-weather__main__stats">
+          <p>Feels like {Math.round(loadedWeather.feelsLike)}°</p>
+          <p>{loadedWeather.desc}</p>
+        </div>
+        <div className="current-weather__details">
+          <p className="current-weather__details__sunrise">
+            Sunrise {loadedWeather.sunrise}
+          </p>
+          <p className="current-weather__details__sunset">
+            Sunset {loadedWeather.sunset}
+          </p>
+
+          <div>Precipitation: {Math.round(loadedWeather.precip)}mm</div>
+        </div>
+      </div>
     );
-  } else if (!isLoadingLocation && !loadedWeather && !isLoadingWeather) {
+  } else if (!isLoadingWeather && !loadedWeather) {
     content = (
       <div className="current-weather">
         <p>Failed to fetch current weather</p>

@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import "./App.scss";
-
+// import { BrowserRouter as Router } from "react-router-dom";
 import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
-import Location from "./components/Location";
+import Location from "./components/Location/Location";
 import Background from "./components/Background/Background";
 import SearchLocations from "./components/SearchLocations";
+import loadingIcon from "./assets/loader.gif";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
@@ -16,57 +17,48 @@ const App = () => {
     setSearchOpen(!searchOpen);
     console.log("from toggleSearch", searchOpen);
   };
-  // const [locations, setLocations] = useState({
-  //   currentLocation: [{ IPlocation: null }, { geoLocation: null }],
-  //   addedLocations: []
-  // });
-
-  // console.log("app locationContext", locationContext);
 
   let content = (
     <div
       style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: "#000",
+        flexDirection: "column",
+        height: "50vh"
       }}
     >
+      <img
+        style={{ height: "60px", width: "60px", marginBottom: "20px" }}
+        src={loadingIcon}
+        alt="loading"
+      />
       Getting location...
     </div>
   );
 
-  if (locationContext.IPlocation && !locationContext.isLoading) {
+  if (locationContext.locations.length > 0 && !locationContext.isLoading) {
     content = (
-      <div
-        className={"App background--" + partOfDay}
-        //todo partOfDay
-      >
+      <div className={"App background--" + partOfDay}>
         <Background />
         <div className="App__container">
           <Menu toggleSearch={toggleSearch} />
-
           <LocationContext.Consumer>
             {value => {
-              console.log("value", value);
               return (
                 <>
                   <SearchLocations
                     searchOpen={searchOpen}
                     setSearchOpen={setSearchOpen}
-                    setAddedLocations={value.setAddedLocations}
-                    addedLocations={value.addedLocations}
                   />
-                  <Location
-                    location={
-                      value.geoLocation.lat
-                        ? value.geoLocation
-                        : value.IPlocation
-                    }
-                    isLoading={value.isLoading}
-                    setPartOfDay={setPartOfDay}
-                  />
-                  {value.addedLocations.map(location => {
-                    return <Location location={location} />;
+                  {value.locations.map(location => {
+                    return (
+                      <Location
+                        setPartOfDay={setPartOfDay}
+                        currentLocation={location}
+                      />
+                    );
                   })}
                 </>
               );
@@ -75,7 +67,10 @@ const App = () => {
         </div>
       </div>
     );
-  } else if (!locationContext.IPlocation && !locationContext.isLoading) {
+  } else if (
+    locationContext.locations.length < 1 &&
+    !locationContext.isLoading
+  ) {
     content = <p>Failed to fetch your location</p>;
   }
   return content;

@@ -5,12 +5,9 @@ import "./WeatherForecast.scss";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherForecast = ({ location, setTodaysWeather }) => {
- 
   const [isLoading, forecastWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
-
- 
 
   const getWeekday = upcomingDay => {
     const date = new Date();
@@ -51,18 +48,16 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
     });
 
     //remove first result from the array
-    const todaysWeather = loadedWeather.shift();
+    loadedWeather.shift();
     // console.log(todaysWeather);
     console.log(loadedWeather);
     // setTodaysWeather(todaysWeather);
-
   }
 
   // const forecastIcon = day.dayWeather.weather.icon.slice(0, 3);
   // console.log(forecastIcon);
 
   let content = null;
-  
 
   if (!isLoading && loadedWeather) {
     content = (

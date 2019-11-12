@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import AlgoliaPlaces from "algolia-places-react";
+import { LocationContext } from "../context";
 import "./SearchLocations.scss";
 
 export default function SearchLocations(props) {
-  const [city, setCity] = useState({ name: "", latlng: "", countryCode: "" });
-
-  // useEffect(() => {
-  //   console.log(city);
-  // }, [city]);
-
+  const locationContext = useContext(LocationContext);
   if (!props.searchOpen) {
     return null;
   } else {
@@ -24,25 +20,16 @@ export default function SearchLocations(props) {
           }
         }}
         onChange={({ suggestion }) => {
-          // setCity({
-          //   name: suggestion.name,
-          //   latlng: suggestion.latlng,
-          //   countryCode: suggestion.countryCode
-          // });
           console.log("addedLocations", props.addedLocations);
-          props.setAddedLocations([
-            ...props.addedLocations,
-            {
-              lat: suggestion.latlng.lat,
-              lon: suggestion.latlng.lng
-            }
-          ]);
+          locationContext.addLocation({
+            lat: suggestion.latlng.lat,
+            lon: suggestion.latlng.lng,
+            city: suggestion.name,
+            country: suggestion.countryCode.toUpperCase()
+          });
+
           props.setSearchOpen(false);
         }}
-        // onLimit={({ message }) => {
-        //   setRateLimit(true);
-        //   setTimeout(() => setRateLimit(false), 3000);
-        // }}
       />
     );
   }
