@@ -17,7 +17,7 @@ Consolidate knowledge in:
 
    * Learning how to use useEffect properly to replace lifecycle methods
    * Learning how to update state with useState, which does not automatically merge it with previous state, but overwrites it (use spred operator)
-* Navigation between dynamically created locatons components
+* Navigation between dynamically created locations components
 * Bad choice when selecting how to structure data in location context. Refactored context, app and location components.
  * Implemented react router to switch between the locations. Decided to go with react carousel and locations list where locations would be rendered all at once. This avoids the location being rendered each time when it is opened.
 
