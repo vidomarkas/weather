@@ -28,7 +28,7 @@ Consolidate knowledge in:
 - [ ] Local storage
 - [ ] Add animations
 - [ ] Ability to change measure units
-- [ ] Dont representing locations, current highlighted
+- [ ] Dots representing locations, current highlighted
 - [ ] Transform to PWA
 - [X] Get IP location
 - [X] Get current weather and forecast from weatherbit API
