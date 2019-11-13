@@ -49,13 +49,7 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
 
     //remove first result from the array
     loadedWeather.shift();
-    // console.log(todaysWeather);
-    console.log(loadedWeather);
-    // setTodaysWeather(todaysWeather);
   }
-
-  // const forecastIcon = day.dayWeather.weather.icon.slice(0, 3);
-  // console.log(forecastIcon);
 
   let content = null;
 

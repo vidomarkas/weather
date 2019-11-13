@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { useHttp } from "../../hooks/http";
-import { LocationContext } from "../../context";
+
 import MainWeatherImage from "../MainWeatherImage";
 import pin from "../../assets/pin.svg";
 import loadingIcon from "../../assets/loader.gif";
@@ -9,8 +9,6 @@ import "./WeatherCurrent.scss";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const WeatherCurrent = ({ location, setPartOfDay }) => {
-  const locationContext = useContext(LocationContext);
-
   const [isLoadingWeather, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
   );
@@ -57,10 +55,7 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
   if (!isLoadingWeather && loadedWeather) {
     content = (
       <div className="current-weather">
-        <div
-          className="current-weather__main__location"
-          onClick={locationContext.getGeoLocation}
-        >
+        <div className="current-weather__main__location">
           <img
             className="current-weather__main__location--pin"
             src={pin}

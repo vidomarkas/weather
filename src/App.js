@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./App.scss";
-// import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
@@ -40,32 +40,42 @@ const App = () => {
 
   if (locationContext.locations.length > 0 && !locationContext.isLoading) {
     content = (
-      <div className={"App background--" + partOfDay}>
-        <Background />
-        <div className="App__container">
-          <Menu toggleSearch={toggleSearch} />
-          <LocationContext.Consumer>
-            {value => {
-              return (
-                <>
-                  <SearchLocations
-                    searchOpen={searchOpen}
-                    setSearchOpen={setSearchOpen}
-                  />
-                  {value.locations.map(location => {
-                    return (
-                      <Location
-                        setPartOfDay={setPartOfDay}
-                        currentLocation={location}
-                      />
-                    );
-                  })}
-                </>
-              );
-            }}
-          </LocationContext.Consumer>
+      <Router>
+        <div className={"App background--" + partOfDay}>
+          <Background />
+          <div className="App__container">
+            <Menu toggleSearch={toggleSearch} />
+            <SearchLocations
+              searchOpen={searchOpen}
+              setSearchOpen={setSearchOpen}
+            />
+            <LocationContext.Consumer>
+              {value => {
+                return (
+                  <div className="locationContainer">
+                    <Switch>
+                      {value.locations.map(location => {
+                        return (
+                          <Route
+                            path={`/${location.city}`}
+                            key={location.city}
+                            render={() => (
+                              <Location
+                                setPartOfDay={setPartOfDay}
+                                currentLocation={location}
+                              />
+                            )}
+                          />
+                        );
+                      })}
+                    </Switch>
+                  </div>
+                );
+              }}
+            </LocationContext.Consumer>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   } else if (
     locationContext.locations.length < 1 &&

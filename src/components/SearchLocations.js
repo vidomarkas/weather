@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AlgoliaPlaces from "algolia-places-react";
 import { LocationContext } from "../context";
+// import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./SearchLocations.scss";
 
 export default function SearchLocations(props) {
+  // const [redirect, setRedirect] = useState(false);
   const locationContext = useContext(LocationContext);
   if (!props.searchOpen) {
     return null;
@@ -29,6 +31,11 @@ export default function SearchLocations(props) {
           });
 
           props.setSearchOpen(false);
+
+          // setRedirect(true);
+          // if (redirect) {
+          //   return <Redirect to={`/${suggestion.name}`} />;
+          // }
         }}
       />
     );

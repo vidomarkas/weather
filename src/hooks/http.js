@@ -6,7 +6,7 @@ export const useHttp = url => {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log("sending http request with ", url);
+    // console.log("sending http request with ", url);
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -19,7 +19,7 @@ export const useHttp = url => {
         setFetchedData(data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         setIsLoading(false);
       });
   }, [url]);

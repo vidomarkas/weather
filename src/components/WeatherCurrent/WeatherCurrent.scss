@@ -1,5 +1,7 @@
 .current-weather {
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
   &__main {
     display: flex;
     justify-content: center;
@@ -71,7 +73,7 @@
       font-size: 30px;
       line-height: 30px;
       font-weight: 600;
-      cursor: pointer;
+
       &--pin {
         height: 22px;
         width: 22px;
@@ -81,7 +83,7 @@
 
     &__icon {
       //border: 1px solid green;
-      width: 50%;
+      // width: 50%;
       display: flex;
 
       justify-content: center;

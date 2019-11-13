@@ -1,4 +1,6 @@
 .weather-forecast {
+  width: 100%;
+  max-width: 400px;
   &__day {
     display: flex;
     justify-content: space-between;
