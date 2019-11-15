@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Weather application made with React
 
-## Available Scripts
+Visit the ongoing project on https://weather-vidomarkas.netlify.com/
 
-In the project directory, you can run:
+## My Objectives
+Learn how to implement:<br />
+* react hooks
+* context API 
 
-### `npm start`
+Consolidate knowledge in:
+* Asynchronous javascript
+* Handling REST APIs
+* Using local storage
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Challenges faced
+* Implementing react hooks
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+   * Learning how to use useEffect properly to replace lifecycle methods
+   * Learning how to update state with useState, which does not automatically merge with the previous state, but overwrites it (using spread operator)
+* Navigation between dynamically created location components
+* Bad choice when selecting how to structure data in the location context file. Refactored context, app and location components.
+ * Implemented react router to switch between the locations. Decided to go with react carousel and locations list where locations would be rendered all at once. This avoids the location being rendered each time when it is opened.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `Checklist`
 
-### `npm run build`
+- [ ] Remove added location
+- [ ] Implement Local storage
+- [ ] Add animations
+- [ ] Ability to change measure units
+- [ ] Dots representing locations, current highlighted
+- [ ] Transform to PWA
+- [X] Get IP location
+- [X] Get current weather and forecast from weatherbit API
+- [X] Create a list of weekdays
+- [X] Apply dynamic weather icons
+- [X] Change background depending on time of day
+- [X] Implement react router to switch between the locations
+- [X] Create a dropdown suggestion list when searching for location with Algolia autocomplete
+- [X] Increase accuracy of location with geolocation using web API
+- [X] loading screen and spinner
+- [X] Hide API keys with environmental variables
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
