@@ -1,12 +1,15 @@
 import React, { useState, useContext } from "react";
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
 import Background from "./components/Background/Background";
 import SearchLocations from "./components/SearchLocations";
 import loadingIcon from "./assets/loader.gif";
+import Slider from "react-slick";
+import {sliderSettings} from './components/SliderConfig/SliderConfig'
+
 
 const App = () => {
   const locationContext = useContext(LocationContext);
@@ -17,6 +20,16 @@ const App = () => {
     setSearchOpen(!searchOpen);
     console.log("from toggleSearch", searchOpen);
   };
+
+  const sliders = () => {
+    return locationContext.locations.map((location, index )=> {
+      return (
+        <Location key={index} setPartOfDay={setPartOfDay} currentLocation={location} />
+      );
+    });
+  };
+
+  
 
   let content = (
     <div
@@ -40,42 +53,23 @@ const App = () => {
 
   if (locationContext.locations.length > 0 && !locationContext.isLoading) {
     content = (
-      <Router>
-        <div className={"App background--" + partOfDay}>
-          <Background />
-          <div className="App__container">
-            <Menu toggleSearch={toggleSearch} />
-            <SearchLocations
-              searchOpen={searchOpen}
-              setSearchOpen={setSearchOpen}
-            />
-            <LocationContext.Consumer>
-              {value => {
-                return (
-                  <div className="locationContainer">
-                    <Switch>
-                      {value.locations.map(location => {
-                        return (
-                          <Route
-                            path={`/${location.city}`}
-                            key={location.city}
-                            render={() => (
-                              <Location
-                                setPartOfDay={setPartOfDay}
-                                currentLocation={location}
-                              />
-                            )}
-                          />
-                        );
-                      })}
-                    </Switch>
-                  </div>
-                );
-              }}
-            </LocationContext.Consumer>
+      <div className={"App background--" + partOfDay}>
+        <Background />
+        <div className="App__container">
+          <Menu toggleSearch={toggleSearch} />
+          <SearchLocations
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+          />
+          <div className="locationContainer">
+            <Slider
+            {...sliderSettings}
+            >
+              {sliders()}
+            </Slider>
           </div>
         </div>
-      </Router>
+      </div>
     );
   } else if (
     locationContext.locations.length < 1 &&

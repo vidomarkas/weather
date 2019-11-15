@@ -1,4 +1,6 @@
 @import "Normalize.scss";
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
 @import url("https://fonts.googleapis.com/css?family=Overpass:400,600,700,900|Rubik:500,700&display=swap");
 
 :root {
@@ -42,20 +44,24 @@ body {
 
   &__container {
     width: 100%;
-    // max-width: 600px;
+    
     margin: 0 auto;
     min-height: calc(100vh - 2px);
-    // border: 1px solid #fff;
+   
     padding: 20px;
     position: relative;
   }
 }
 
-/* Night mode */
+
 
 .forecastImage {
   height: 30px;
   width: 30px;
+}
+
+.algolia-places {
+  max-width: 600px;
 }
 
 .App-logo {
@@ -75,4 +81,28 @@ body {
 
 .App-link {
   color: #09d3ac;
+}
+
+
+
+.slick-dots li button:before {
+    color: #fff;
+    opacity: .25;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: #fff !important;
+}
+
+
+.slick-arrow{
+  display: block;
+  position: absolute;
+  top: 50%;
+  height: 20px;
+  width: 20px;
+  transform: translateY(-50%); 
+  @media screen and (max-width: 900px){
+    top: 20%;
+  }
 }
