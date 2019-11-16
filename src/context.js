@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
+import uuid from "uuid";
 export const LocationContext = React.createContext({});
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
 const LocationContextProvider = props => {
+  const initialLocations = JSON.parse(localStorage.getItem("locations")) || [
+    { city: "Klaipeda", lat: "20", lon: "20", country: "OO" }
+  ];
+  console.log(initialLocations);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [locations, setLocations] = useState([
-    {
-      lat: 51.4408448,
-      lon: 51.4408448,
-      city: "Gravesend",
-      country: "GB",
-      IPlocation: true,
-      geoLocation: false
-    },
-    { lat: 52.520007, lon: 13.404954, city: "Mitte", country: "CC" },
-    { lat: 56.9494, lon: 24.1052, city: "Riga", country: "LV" }
-  ]);
+  const [locations, setLocations] = useState([...initialLocations]);
 
   // Fetching users approximate coordinates with IP address
   const fetchIPlocation = async () => {
@@ -32,7 +27,10 @@ const LocationContextProvider = props => {
             lat: data.latitude,
             lon: data.longitude,
             city: data.city,
-            country: data.country
+            country: data.country,
+            mainLocation: true,
+            id: uuid.v4(),
+            IPlocation: true
           },
           ...prevState
         ]);
@@ -43,22 +41,26 @@ const LocationContextProvider = props => {
             lon: data.longitude,
             city: data.city,
             country: data.country,
-            IPlocation: true,
-            geoLocation: false
+            mainLocation: true,
+            id: uuid.v4(),
+            IPlocation: true
           },
           ...prevState
         ]);
       }
       setIsLoading(false);
     } catch (error) {
-      // console.log(error);
       setIsLoading(false);
     }
   };
 
   const addLocation = newLocation => {
     setLocations(prevState => [...prevState, newLocation]);
-    // console.log("Added!");
+    console.log("added", localStorage);
+  };
+
+  const deleteLocation = id => {
+    setLocations([...locations.filter(location => location.id !== id)]);
   };
 
   // Getting users exact coordinates and fetching city name
@@ -83,8 +85,8 @@ const LocationContextProvider = props => {
                 lon: position.coords.longitude,
                 city: data.data[0].city_name,
                 country: data.data[0].country_code,
-                geoLocation: true,
-                IPlocation: false
+                mainLocation: true,
+                id: uuid.v4()
               }
             ]);
 
@@ -96,7 +98,9 @@ const LocationContextProvider = props => {
                 lat: position.coords.latitude,
                 lon: position.coords.longitude,
                 city: data.data[0].city_name,
-                country: data.data[0].country_code
+                country: data.data[0].country_code,
+                mainLocation: true,
+                id: uuid.v4()
               },
               ...prevState
             ]);
@@ -125,14 +129,21 @@ const LocationContextProvider = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const locationsString = JSON.stringify(locations);
+    console.log("useefect location from state", locations);
+    localStorage.setItem("locations", locationsString);
+    console.log("useeffect locations from local storage", localStorage);
+  }, [locations]);
+
   return (
     <LocationContext.Provider
       value={{
-        // todo get locations from local storage
         locations: locations,
         isLoading: isLoading,
         getGeoLocation: getGeoLocation,
-        addLocation: addLocation
+        addLocation: addLocation,
+        deleteLocation: deleteLocation
       }}
     >
       {props.children}

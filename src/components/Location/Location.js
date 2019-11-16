@@ -5,10 +5,15 @@ import "./Location.scss";
 
 const Location = ({ setPartOfDay, currentLocation }) => {
   return (
-    <div className="location">
-      <WeatherCurrent location={currentLocation} setPartOfDay={setPartOfDay} />
-      <WeatherForecast location={currentLocation} />
-    </div>
+    <>
+      <div className="location">
+        <WeatherCurrent
+          location={currentLocation}
+          setPartOfDay={setPartOfDay}
+        />
+        <WeatherForecast location={currentLocation} />
+      </div>
+    </>
   );
 };
 

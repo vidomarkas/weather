@@ -5,11 +5,10 @@ import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
 import Background from "./components/Background/Background";
-import SearchLocations from "./components/SearchLocations";
+import SearchLocations from "./components/SearchLocations/SearchLocations";
 import loadingIcon from "./assets/loader.gif";
 import Slider from "react-slick";
-import {sliderSettings} from './components/SliderConfig/SliderConfig'
-
+import { sliderSettings } from "./components/SliderConfig/SliderConfig";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
@@ -22,14 +21,16 @@ const App = () => {
   };
 
   const sliders = () => {
-    return locationContext.locations.map((location, index )=> {
+    return locationContext.locations.map((location, index) => {
       return (
-        <Location key={index} setPartOfDay={setPartOfDay} currentLocation={location} />
+        <Location
+          key={index}
+          setPartOfDay={setPartOfDay}
+          currentLocation={location}
+        />
       );
     });
   };
-
-  
 
   let content = (
     <div
@@ -62,11 +63,7 @@ const App = () => {
             setSearchOpen={setSearchOpen}
           />
           <div className="locationContainer">
-            <Slider
-            {...sliderSettings}
-            >
-              {sliders()}
-            </Slider>
+            <Slider {...sliderSettings}>{sliders()}</Slider>
           </div>
         </div>
       </div>

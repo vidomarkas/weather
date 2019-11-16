@@ -2,7 +2,7 @@ import React from "react";
 import { useHttp } from "../../hooks/http";
 import "./WeatherForecast.scss";
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
 const WeatherForecast = ({ location, setTodaysWeather }) => {
   const [isLoading, forecastWeather] = useHttp(

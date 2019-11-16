@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MenuPopup from "../MenuPopup/MenuPopup";
 import menu from "../../assets/menu.svg";
 import search from "../../assets/search.svg";
 import "./Menu.scss";
@@ -34,6 +35,7 @@ const Menu = props => {
         alt="menu-icon"
         onClick={toggleMenu}
       />
+      {menuOpen ? <MenuPopup toggleMenu={toggleMenu} /> : null}
     </div>
   );
 };

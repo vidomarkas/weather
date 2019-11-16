@@ -6,7 +6,7 @@ import pin from "../../assets/pin.svg";
 import loadingIcon from "../../assets/loader.gif";
 import "./WeatherCurrent.scss";
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
 const WeatherCurrent = ({ location, setPartOfDay }) => {
   const [isLoadingWeather, currentWeather] = useHttp(
@@ -29,7 +29,7 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
       partOfDay: currentWeather.data[0].pod
     };
 
-    // todo try this
+    // todo change background on each location, currently responds to last location.
     setPartOfDay(loadedWeather.partOfDay);
   }
 
@@ -55,12 +55,20 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
   if (!isLoadingWeather && loadedWeather) {
     content = (
       <div className="current-weather">
+        {location.IPlocation ? (
+          <div style={{ paddingBottom: "20px" }}>
+            Using approximate location. Allow to use your location for more
+            accuracy{" "}
+          </div>
+        ) : null}
         <div className="current-weather__main__location">
-          <img
-            className="current-weather__main__location--pin"
-            src={pin}
-            alt="pin"
-          />
+          {location.mainLocation ? (
+            <img
+              className="current-weather__main__location--pin"
+              src={pin}
+              alt="pin"
+            />
+          ) : null}
           {loadedWeather.cityName}, {loadedWeather.countryCode}
         </div>
         <div className="current-weather__main">

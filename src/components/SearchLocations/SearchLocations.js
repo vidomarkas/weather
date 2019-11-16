@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AlgoliaPlaces from "algolia-places-react";
-import { LocationContext } from "../context";
+import { LocationContext } from "../../context";
+import uuid from "uuid";
 import "./SearchLocations.scss";
 
 export default function SearchLocations(props) {
@@ -24,7 +25,9 @@ export default function SearchLocations(props) {
             lat: suggestion.latlng.lat,
             lon: suggestion.latlng.lng,
             city: suggestion.name,
-            country: suggestion.countryCode.toUpperCase()
+            country: suggestion.countryCode.toUpperCase(),
+            mainLocation: false,
+            id: uuid.v4()
           });
           props.setSearchOpen(false);
         }}
