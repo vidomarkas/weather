@@ -3,11 +3,8 @@
   height: 100%;
   top: 0;
   left: 0;
-  // z-index: -1;
   overflow: hidden;
   position: absolute;
-  color: #aec7d80a;
-  color: #fff;
 
   &__cloud1 {
     position: absolute;
@@ -31,13 +28,16 @@
 }
 
 .background--n {
-  background-image: linear-gradient(to bottom, #4201a0, #040734);
-  // z-index: -2;
+  background-image: linear-gradient(to bottom, rgb(66, 1, 160), rgb(4, 7, 52));
 }
 
 /* Day mode */
 
 .background--d {
-  background-image: linear-gradient(to bottom, #307dfc, #56a0fb, #307dfc);
-  // z-index: -2;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(48, 125, 252),
+    rgb(86, 160, 251),
+    rgb(48, 125, 252)
+  );
 }

@@ -1,6 +1,6 @@
 @import "Normalize.scss";
-@import "~slick-carousel/slick/slick.css"; 
-@import "~slick-carousel/slick/slick-theme.css";
+@import "../node_modules/slick-carousel/slick/slick.css";
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
 @import url("https://fonts.googleapis.com/css?family=Overpass:400,600,700,900|Rubik:500,700&display=swap");
 
 :root {
@@ -44,16 +44,12 @@ body {
 
   &__container {
     width: 100%;
-    
     margin: 0 auto;
-    min-height: calc(100vh - 2px);
-   
+    min-height: 100vh;
     padding: 20px;
     position: relative;
   }
 }
-
-
 
 .forecastImage {
   height: 30px;
@@ -83,26 +79,23 @@ body {
   color: #09d3ac;
 }
 
-
-
 .slick-dots li button:before {
-    color: #fff;
-    opacity: .25;
-  }
-
-  .slick-dots li.slick-active button:before {
-    color: #fff !important;
+  color: #fff;
+  opacity: 0.25;
 }
 
+.slick-dots li.slick-active button:before {
+  color: #fff !important;
+}
 
-.slick-arrow{
+.slick-arrow {
   display: block;
   position: absolute;
   top: 50%;
   height: 20px;
   width: 20px;
-  transform: translateY(-50%); 
-  @media screen and (max-width: 900px){
+  transform: translateY(-50%);
+  @media screen and (max-width: 900px) {
     top: 20%;
   }
 }

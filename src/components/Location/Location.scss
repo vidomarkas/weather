@@ -1,25 +1,29 @@
 .location {
   padding-top: 50px;
   width: 96%;
-  // min-width: 600px;
   display: flex;
+
   justify-content: space-evenly;
-  // border: 1px solid #f12225;
+
   margin: 0 auto;
   @media screen and (max-width: 900px) {
     align-items: center;
-    // flex-direction: column;
     flex-wrap: wrap;
-    
+  }
+}
+
+@supports (-ms-accelerator: true) {
+  /* Edge only */
+
+  .location {
+    justify-content: space-between;
+    padding-top: 50px;
+    width: 96%;
+    display: flex;
   }
 }
 
 .locationContainer {
-  // display: flex;
-   width: 96%;
-  // flex-wrap: wrap;
-   margin: 0 auto;
-  // min-height: calc(100vh - 2px);
-  // border: 1px solid #fff;
-  // padding: 20px;
+  width: 96%;
+  margin: 6% auto 0;
 }
