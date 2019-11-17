@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import uuid from "uuid";
 
-export const LocationContext = React.createContext({});
+export const Context = React.createContext({});
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
-const LocationContextProvider = props => {
+const ContextProvider = props => {
   const initialLocations = JSON.parse(localStorage.getItem("locations")) || [
-    { city: "Klaipeda", lat: "20", lon: "20", country: "OO" }
+    { city: "Paris", lat: "20", lon: "20", country: "FR" }
   ];
-  console.log(initialLocations);
 
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState([...initialLocations]);
+
+  const initialUnit = JSON.parse(localStorage.getItem("unit")) || "M";
+  const [unit, setUnit] = useState(initialUnit);
 
   const [locationLimitReached, setLocationLimitReached] = useState(false);
 
   // Fetching users approximate coordinates with IP address
   const fetchIPlocation = async () => {
-    // console.log("fetching IP location...");
     setIsLoading(true);
     try {
       const result = await fetch(`https://ipapi.co/json/`);
@@ -59,7 +60,6 @@ const LocationContextProvider = props => {
 
   const addLocation = newLocation => {
     setLocations(prevState => [...prevState, newLocation]);
-    console.log("added", localStorage);
   };
 
   const deleteLocation = id => {
@@ -69,19 +69,16 @@ const LocationContextProvider = props => {
   // Getting users exact coordinates and fetching city name
   const getGeoLocation = () => {
     setIsLoading(true);
-    // console.log("getting geolocation");
+
     const geoLocationPermissionAllowed = position => {
       (async function() {
         try {
-          // console.log("fetching GEOlocation from API");
           const result = await fetch(
-            `https://api.weatherbit.io/v2.0/current?&lat=${position.coords.latitude}&lon=${position.coords.longitude}&key=${API_KEY}`
+            `https://api.weatherbit.io/v2.0/current?&lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${unit}&key=${API_KEY}`
           );
           const data = await result.json();
-          // console.log("fetched GEOlocation from API", data);
+
           if (locations.length <= 1) {
-            // console.log(data);
-            // console.log(position);
             setLocations([
               {
                 lat: position.coords.latitude,
@@ -110,14 +107,12 @@ const LocationContextProvider = props => {
             setIsLoading(false);
           }
         } catch (error) {
-          // console.log(error);
           setIsLoading(false);
         }
       })();
     };
 
     const geoLocationPermissionDenied = err => {
-      // console.log("Geolocation permission denied, using IP location");
       fetchIPlocation();
     };
     navigator.geolocation.getCurrentPosition(
@@ -134,13 +129,24 @@ const LocationContextProvider = props => {
 
   useEffect(() => {
     const locationsString = JSON.stringify(locations);
-    console.log("useefect location from state", locations);
     localStorage.setItem("locations", locationsString);
-    console.log("useeffect locations from local storage", localStorage);
   }, [locations]);
 
+  const switchUnit = () => {
+    if (unit === "M") {
+      setUnit("I");
+    } else {
+      setUnit("M");
+    }
+  };
+
+  useEffect(() => {
+    const unitString = JSON.stringify(unit);
+    localStorage.setItem("unit", unitString);
+  }, [unit]);
+
   return (
-    <LocationContext.Provider
+    <Context.Provider
       value={{
         locations: locations,
         isLoading: isLoading,
@@ -148,12 +154,14 @@ const LocationContextProvider = props => {
         addLocation: addLocation,
         deleteLocation: deleteLocation,
         locationLimitReached: locationLimitReached,
-        setLocationLimitReached: setLocationLimitReached
+        setLocationLimitReached: setLocationLimitReached,
+        switchUnit: switchUnit,
+        unit: unit
       }}
     >
       {props.children}
-    </LocationContext.Provider>
+    </Context.Provider>
   );
 };
 
-export { LocationContextProvider };
+export { ContextProvider };

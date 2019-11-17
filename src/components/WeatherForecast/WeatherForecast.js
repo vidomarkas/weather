@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHttp } from "../../hooks/http";
 import "./WeatherForecast.scss";
+import { Context } from "../../Context";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
 const WeatherForecast = ({ location, setTodaysWeather }) => {
+  const context = useContext(Context);
   const [isLoading, forecastWeather] = useHttp(
-    `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
+    `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${location.lat}&lon=${location.lon}&units=${context.unit}&key=${API_KEY}`
   );
 
   const getWeekday = upcomingDay => {

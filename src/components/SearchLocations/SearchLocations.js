@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import AlgoliaPlaces from "algolia-places-react";
-import { LocationContext } from "../../context";
+import { Context } from "../../Context";
 import uuid from "uuid";
 import "./SearchLocations.scss";
 
 export default function SearchLocations(props) {
-  const locationContext = useContext(LocationContext);
+  const context = useContext(Context);
   if (!props.searchOpen) {
     return null;
   } else {
@@ -21,8 +21,8 @@ export default function SearchLocations(props) {
           }
         }}
         onChange={({ suggestion }) => {
-          if (locationContext.locations.length < 6) {
-            locationContext.addLocation({
+          if (context.locations.length < 6) {
+            context.addLocation({
               lat: suggestion.latlng.lat,
               lon: suggestion.latlng.lng,
               city: suggestion.name,
@@ -31,11 +31,8 @@ export default function SearchLocations(props) {
               id: uuid.v4()
             });
           } else {
-            locationContext.setLocationLimitReached(true);
-            setTimeout(
-              () => locationContext.setLocationLimitReached(false),
-              2000
-            );
+            context.setLocationLimitReached(true);
+            setTimeout(() => context.setLocationLimitReached(false), 2000);
           }
           props.setSearchOpen(false);
         }}

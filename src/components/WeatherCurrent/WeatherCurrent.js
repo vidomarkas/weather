@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHttp } from "../../hooks/http";
-
+import { Context } from "../../Context";
 import MainWeatherImage from "../MainWeatherImage";
 import pin from "../../assets/pin.svg";
 import loadingIcon from "../../assets/loader.gif";
@@ -9,8 +9,9 @@ import "./WeatherCurrent.scss";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
 const WeatherCurrent = ({ location, setPartOfDay }) => {
+  const context = useContext(Context);
   const [isLoadingWeather, currentWeather] = useHttp(
-    `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&key=${API_KEY}`
+    `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&units=${context.unit}&key=${API_KEY}`
   );
 
   let loadedWeather = null;

@@ -9,17 +9,7 @@ const Menu = props => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    console.log("from togglemenu", menuOpen);
   };
-
-  //Check if menu is open
-  // React.useEffect(() => {
-  //   if (menuOpen === true) {
-  //     console.log("open");
-  //   } else {
-  //     console.log("false");
-  //   }
-  // }, [menuOpen]);
 
   return (
     <div className="menu">

@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { LocationContextProvider } from "./context";
+import { ContextProvider } from "./Context";
 
 ReactDOM.render(
-  <LocationContextProvider>
+  <ContextProvider>
     <App />
-  </LocationContextProvider>,
+  </ContextProvider>,
   document.getElementById("root")
 );

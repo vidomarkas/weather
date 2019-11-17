@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { LocationContext } from "../../context";
+import React, { useContext } from "react";
+import { Context } from "../../Context";
 import "./LocationLimitReached.scss";
 
 export default function LocationLimitReached() {
-  const locationContext = useContext(LocationContext);
-  const [showPopup, setShowPopup] = useState(false);
+  const context = useContext(Context);
 
-  //   if (locationContext.locationLimitReached) {
-  //     console.log("showing popup");
-  //     setShowPopup(true);
-  //   }
-
-  if (locationContext.locationLimitReached) {
+  if (context.locationLimitReached) {
     return (
       <div className="locationLimitReachedPopup">Location limit reached</div>
     );

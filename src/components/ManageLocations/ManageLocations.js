@@ -1,29 +1,38 @@
 import React, { useContext } from "react";
 import "./ManageLocations.scss";
-import { LocationContext } from "../../context";
+import { Context } from "../../Context";
+import deleteIcon from "../../assets/rubbish-bin.svg";
 
 export default function ManageLocations(props) {
-  const locationContext = useContext(LocationContext);
+  const context = useContext(Context);
   return (
     <div className="manageLocations">
       <div className="manageLocations_inner">
-        <h2>manage locations</h2>
-        {locationContext.locations.map(location => {
+        {context.locations.map(location => {
           return (
-            <div key={location.id} style={{ color: "#000" }}>
+            <div className="manageLocations__item" key={location.id}>
               {location.city}
               {location.mainLocation ? null : (
-                <button
-                  style={{ backgroundColor: "red" }}
-                  onClick={() => locationContext.deleteLocation(location.id)}
+                <div
+                  className="manageLocations__item__deleteBtn"
+                  onClick={() => context.deleteLocation(location.id)}
                 >
-                  X
-                </button>
+                  <img
+                    className="manageLocations__item__deleteBtn--img"
+                    src={deleteIcon}
+                    alt=""
+                  />
+                </div>
               )}
             </div>
           );
         })}
-        <button onClick={props.closeManageLocations}>close</button>
+        <button
+          className="manageLocations__closeBtn"
+          onClick={props.closeManageLocations}
+        >
+          &times;
+        </button>
       </div>
     </div>
   );

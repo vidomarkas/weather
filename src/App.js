@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./App.scss";
-import { LocationContext } from "./context";
+import { Context } from "./Context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
 import Background from "./components/Background/Background";
@@ -11,17 +11,16 @@ import { sliderSettings } from "./components/SliderConfig/SliderConfig";
 import LocationLimitReached from "./components/LocationLimitReached/LocationLimitReached";
 
 const App = () => {
-  const locationContext = useContext(LocationContext);
+  const context = useContext(Context);
   const [partOfDay, setPartOfDay] = useState("default");
   const [searchOpen, setSearchOpen] = useState(false);
 
   const toggleSearch = () => {
     setSearchOpen(!searchOpen);
-    console.log("from toggleSearch", searchOpen);
   };
 
   const sliders = () => {
-    return locationContext.locations.map((location, index) => {
+    return context.locations.map((location, index) => {
       return (
         <Location
           key={index}
@@ -52,7 +51,7 @@ const App = () => {
     </div>
   );
 
-  if (locationContext.locations.length > 0 && !locationContext.isLoading) {
+  if (context.locations.length > 0 && !context.isLoading) {
     content = (
       <div className={"App background--" + partOfDay}>
         <Background />
@@ -69,10 +68,7 @@ const App = () => {
         </div>
       </div>
     );
-  } else if (
-    locationContext.locations.length < 1 &&
-    !locationContext.isLoading
-  ) {
+  } else if (context.locations.length < 1 && !context.isLoading) {
     content = <p>Failed to fetch your location</p>;
   }
   return content;

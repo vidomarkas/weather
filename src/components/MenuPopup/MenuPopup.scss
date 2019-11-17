@@ -7,16 +7,25 @@
   // height: 140px;
   // width: 240px;
   border-radius: 10px;
-  padding: 20px 0;
+  padding: 10px 0;
   text-align: left;
   z-index: 5000;
 
   &__item {
     cursor: pointer;
     padding: 20px;
+    display: flex;
+    justify-items: center;
+    justify-content: baseline;
+    line-height: 24px;
     // margin: 20px 0 0 0;
     &:hover {
       background-color: #eee;
+    }
+
+    &__img {
+      height: 20px;
+      width: 20px;
     }
   }
 }
