@@ -14,8 +14,10 @@ export default function MenuPopup(props) {
         <ManageLocations closeManageLocations={props.toggleMenu} />
       ) : (
         <div className="menuPopup">
-          <div onClick={toggleManageLocations}>Manage locations</div>
-          <div>Unit C</div>
+          <div className="menuPopup__item" onClick={toggleManageLocations}>
+            Manage locations
+          </div>
+          <div className="menuPopup__item">Switch to Fahrenheit</div>
         </div>
       )}
     </>

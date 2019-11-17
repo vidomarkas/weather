@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import "./App.scss";
-
 import { LocationContext } from "./context";
 import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
@@ -9,6 +8,7 @@ import SearchLocations from "./components/SearchLocations/SearchLocations";
 import loadingIcon from "./assets/loader.gif";
 import Slider from "react-slick";
 import { sliderSettings } from "./components/SliderConfig/SliderConfig";
+import LocationLimitReached from "./components/LocationLimitReached/LocationLimitReached";
 
 const App = () => {
   const locationContext = useContext(LocationContext);
@@ -57,6 +57,7 @@ const App = () => {
       <div className={"App background--" + partOfDay}>
         <Background />
         <div className="App__container">
+          <LocationLimitReached />
           <Menu toggleSearch={toggleSearch} />
           <SearchLocations
             searchOpen={searchOpen}

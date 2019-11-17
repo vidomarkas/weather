@@ -21,14 +21,22 @@ export default function SearchLocations(props) {
           }
         }}
         onChange={({ suggestion }) => {
-          locationContext.addLocation({
-            lat: suggestion.latlng.lat,
-            lon: suggestion.latlng.lng,
-            city: suggestion.name,
-            country: suggestion.countryCode.toUpperCase(),
-            mainLocation: false,
-            id: uuid.v4()
-          });
+          if (locationContext.locations.length < 6) {
+            locationContext.addLocation({
+              lat: suggestion.latlng.lat,
+              lon: suggestion.latlng.lng,
+              city: suggestion.name,
+              country: suggestion.countryCode.toUpperCase(),
+              mainLocation: false,
+              id: uuid.v4()
+            });
+          } else {
+            locationContext.setLocationLimitReached(true);
+            setTimeout(
+              () => locationContext.setLocationLimitReached(false),
+              2000
+            );
+          }
           props.setSearchOpen(false);
         }}
       />

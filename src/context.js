@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import uuid from "uuid";
+
 export const LocationContext = React.createContext({});
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
@@ -12,6 +13,8 @@ const LocationContextProvider = props => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState([...initialLocations]);
+
+  const [locationLimitReached, setLocationLimitReached] = useState(false);
 
   // Fetching users approximate coordinates with IP address
   const fetchIPlocation = async () => {
@@ -143,7 +146,9 @@ const LocationContextProvider = props => {
         isLoading: isLoading,
         getGeoLocation: getGeoLocation,
         addLocation: addLocation,
-        deleteLocation: deleteLocation
+        deleteLocation: deleteLocation,
+        locationLimitReached: locationLimitReached,
+        setLocationLimitReached: setLocationLimitReached
       }}
     >
       {props.children}
