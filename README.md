@@ -24,11 +24,11 @@ Consolidate knowledge in:
 
 ### `Checklist`
 
-- [ ] Remove added location
-- [ ] Implement Local storage
+- [X] Remove added location
+- [X] Implement Local storage
 - [ ] Add animations
-- [ ] Ability to change measure units
-- [ ] Dots representing locations, current highlighted
+- [X] Ability to change measure units
+- [X] Dots representing locations, current highlighted
 - [ ] Transform to PWA
 - [X] Get IP location
 - [X] Get current weather and forecast from weatherbit API
