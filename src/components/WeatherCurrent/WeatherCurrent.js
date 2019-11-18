@@ -8,7 +8,7 @@ import "./WeatherCurrent.scss";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
-const WeatherCurrent = ({ location, setPartOfDay }) => {
+const WeatherCurrent = ({ location }) => {
   const context = useContext(Context);
   const [isLoadingWeather, currentWeather] = useHttp(
     `https://api.weatherbit.io/v2.0/current?&lat=${location.lat}&lon=${location.lon}&units=${context.unit}&key=${API_KEY}`
@@ -27,11 +27,9 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
       precip: currentWeather.data[0].precip,
       iconName: currentWeather.data[0].weather.icon,
       desc: currentWeather.data[0].weather.description,
-      partOfDay: currentWeather.data[0].pod
+      date: currentWeather.data[0].timezone,
+      humidity: currentWeather.data[0].rh
     };
-
-    // todo change background on each location, currently responds to last location.
-    setPartOfDay(loadedWeather.partOfDay);
   }
 
   let content = (
@@ -94,7 +92,11 @@ const WeatherCurrent = ({ location, setPartOfDay }) => {
             Sunset {loadedWeather.sunset}
           </p>
 
-          <div>Precipitation: {Math.round(loadedWeather.precip)}mm</div>
+          <div>
+            Precipitation: {Math.round(loadedWeather.precip)}
+            {context.unit === "M" ? "mm" : "in"}
+          </div>
+          <div>Humidity: {loadedWeather.humidity}%</div>
         </div>
       </div>
     );

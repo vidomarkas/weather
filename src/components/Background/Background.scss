@@ -24,20 +24,5 @@
 }
 
 .background--default {
-  background-color: black;
-}
-
-.background--n {
-  background-image: linear-gradient(to bottom, rgb(66, 1, 160), rgb(4, 7, 52));
-}
-
-/* Day mode */
-
-.background--d {
-  background-image: linear-gradient(
-    to bottom,
-    rgb(48, 125, 252),
-    rgb(86, 160, 251),
-    rgb(48, 125, 252)
-  );
+  background-image: linear-gradient(to bottom right, #4026ad, #7eacdd);
 }

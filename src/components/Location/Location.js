@@ -3,14 +3,11 @@ import WeatherCurrent from "../WeatherCurrent/WeatherCurrent";
 import WeatherForecast from "../WeatherForecast/WeatherForecast";
 import "./Location.scss";
 
-const Location = ({ setPartOfDay, currentLocation }) => {
+const Location = ({ currentLocation }) => {
   return (
     <>
       <div className="location">
-        <WeatherCurrent
-          location={currentLocation}
-          setPartOfDay={setPartOfDay}
-        />
+        <WeatherCurrent location={currentLocation} />
         <WeatherForecast location={currentLocation} />
       </div>
     </>

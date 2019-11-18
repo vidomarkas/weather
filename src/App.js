@@ -12,7 +12,7 @@ import LocationLimitReached from "./components/LocationLimitReached/LocationLimi
 
 const App = () => {
   const context = useContext(Context);
-  const [partOfDay, setPartOfDay] = useState("default");
+
   const [searchOpen, setSearchOpen] = useState(false);
 
   const toggleSearch = () => {
@@ -21,13 +21,7 @@ const App = () => {
 
   const sliders = () => {
     return context.locations.map((location, index) => {
-      return (
-        <Location
-          key={index}
-          setPartOfDay={setPartOfDay}
-          currentLocation={location}
-        />
-      );
+      return <Location key={index} currentLocation={location} />;
     });
   };
 
@@ -53,7 +47,7 @@ const App = () => {
 
   if (context.locations.length > 0 && !context.isLoading) {
     content = (
-      <div className={"App background--" + partOfDay}>
+      <div className={"App background--default"}>
         <Background />
         <div className="App__container">
           <LocationLimitReached />
