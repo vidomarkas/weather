@@ -5,10 +5,11 @@ import Menu from "./components/Menu/Menu";
 import Location from "./components/Location/Location";
 import Background from "./components/Background/Background";
 import SearchLocations from "./components/SearchLocations/SearchLocations";
-import loadingIcon from "./assets/loader.gif";
 import Slider from "react-slick";
 import { sliderSettings } from "./components/SliderConfig/SliderConfig";
 import LocationLimitReached from "./components/LocationLimitReached/LocationLimitReached";
+import LottieControl from "./components/LottieControl";
+import * as loader from "./assets/loader.json";
 
 const App = () => {
   const context = useContext(Context);
@@ -27,21 +28,18 @@ const App = () => {
 
   let content = (
     <div
+      className="background--default"
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000",
         flexDirection: "column",
-        height: "50vh"
+        height: "100vh"
       }}
     >
-      <img
-        style={{ height: "60px", width: "60px", marginBottom: "20px" }}
-        src={loadingIcon}
-        alt="loading"
-      />
-      Getting location...
+      <Background />
+      <LottieControl animationData={loader} />
+      One moment...
     </div>
   );
 
@@ -63,7 +61,7 @@ const App = () => {
       </div>
     );
   } else if (context.locations.length < 1 && !context.isLoading) {
-    content = <p>Failed to fetch your location</p>;
+    content = <p>Failed to determine your location</p>;
   }
   return content;
 };

@@ -67,7 +67,7 @@ const WeatherForecast = ({ location, setTodaysWeather }) => {
                 </div>
                 <div className="weather-forecast__details">
                   <img
-                    className="forecastImage"
+                    className="weather-forecast__icon"
                     src={require("../../assets/weatherbitIcons/" +
                       day.dayWeather.weather.icon +
                       ".png")}

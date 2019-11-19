@@ -12,18 +12,18 @@
   }
 }
 
-@supports (-ms-accelerator: true) {
+.locationContainer {
+  width: 96%;
+  margin: 6% auto 0;
+}
+
+@supports (-ms-ime-align: auto) {
   /* Edge only */
 
   .location {
-    justify-content: space-between;
+    justify-content: space-around;
     padding-top: 50px;
     width: 96%;
     display: flex;
   }
-}
-
-.locationContainer {
-  width: 96%;
-  margin: 6% auto 0;
 }

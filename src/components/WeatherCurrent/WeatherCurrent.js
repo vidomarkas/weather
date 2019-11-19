@@ -3,8 +3,9 @@ import { useHttp } from "../../hooks/http";
 import { Context } from "../../Context";
 import MainWeatherImage from "../MainWeatherImage";
 import pin from "../../assets/pin.svg";
-import loadingIcon from "../../assets/loader.gif";
 import "./WeatherCurrent.scss";
+import LottieControl from "../LottieControl";
+import * as loader from "../../assets/loader.json";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY2;
 
@@ -42,12 +43,7 @@ const WeatherCurrent = ({ location }) => {
         height: "50vh"
       }}
     >
-      <img
-        style={{ height: "60px", width: "60px", marginBottom: "20px" }}
-        src={loadingIcon}
-        alt="loading"
-      />
-      Loading...
+      <LottieControl animationData={loader} />
     </div>
   );
 

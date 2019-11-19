@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  color: #fff;
+  color: var(--color-primary);
   background-color: #000;
 }
 
@@ -29,12 +29,12 @@ body {
   padding: 8px 12px;
   background-color: black;
   border: 2px solid #797979;
-  color: #ffffff;
+  color: var(--color-primary);
   border-radius: 6px;
   cursor: pointer;
 
   &:hover {
-    border: 2px solid #10b92c;
+    border: 2px solid #4531b1;
   }
 }
 
@@ -51,41 +51,13 @@ body {
   }
 }
 
-.forecastImage {
-  height: 30px;
-  width: 30px;
-}
-
-.algolia-places {
-  max-width: 600px;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
 .slick-dots li button:before {
-  color: #fff;
+  color: var(--color-primary);
   opacity: 0.25;
 }
 
 .slick-dots li.slick-active button:before {
-  color: #fff !important;
+  color: var(--color-primary) !important;
 }
 
 .slick-arrow {
