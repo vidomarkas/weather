@@ -1,6 +1,10 @@
 # Weather application made with React
 
-Visit the ongoing project on https://weather-vidomarkas.netlify.com/
+Visit the project on https://weather-vidomarkas.netlify.com/
+
+
+#### Youtube video link:
+[![weather video link](https://img.youtube.com/vi/Tl0CYyrQ0HI/0.jpg)](https://www.youtube.com/watch?v=Tl0CYyrQ0HI)
 
 ## My Objectives
 Learn how to implement:<br />
